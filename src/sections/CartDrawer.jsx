@@ -1,7 +1,7 @@
 import { X, Plus, Minus, ShoppingCart, Trash2, MessageCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
-const WHATSAPP_NUMBER = '9779815366153';
+const WHATSAPP_NUMBER = '9779816347329';
 
 export default function CartDrawer() {
   const {
@@ -17,9 +17,9 @@ export default function CartDrawer() {
   const handleWhatsAppOrder = () => {
     if (cartItems.length === 0) return;
 
-    let message = 'Hello! I would like to order the following flowers:\n\n';
+    let message = 'Hello! I would like to order the following Iteams:\n\n';
     cartItems.forEach((item, index) => {
-      message += `${index + 1}. ${item.name} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}\n`;
+      message += `${index + 1}. ${item.name} x ${item.quantity} - Rs.${(item.price * item.quantity).toFixed(2)}\n`;
     });
     message += `\n*Total: Rs.${cartTotal.toFixed(2)}*\n\n`;
     message += 'Please confirm my order. Thank you!';
@@ -65,7 +65,7 @@ export default function CartDrawer() {
             <div className="flex flex-col items-center justify-center h-full text-center">
               <ShoppingCart className="w-12 sm:w-16 h-12 sm:h-16 text-gray-200 mb-3 sm:mb-4" />
               <p className="text-gray-500 text-xs sm:text-sm">Your cart is empty</p>
-              <p className="text-gray-400 text-[11px] sm:text-xs mt-1">Add some beautiful flowers!</p>
+              <p className="text-gray-400 text-[11px] sm:text-xs mt-1">Add some Items!</p>
               <button
                 onClick={closeCart}
                 className="mt-4 sm:mt-6 px-4 sm:px-6 py-2 sm:py-2.5 bg-black text-white rounded-full text-xs sm:text-sm hover:bg-gray-800 transition-all"
@@ -89,7 +89,7 @@ export default function CartDrawer() {
                     <div>
                       <h3 className="text-xs sm:text-sm font-medium truncate">{item.name}</h3>
                       <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
-                        ${item.price.toFixed(2)}
+                        Rs.{item.price.toFixed(2)}
                       </p>
                     </div>
                     <div className="flex items-center justify-between gap-1.5">
