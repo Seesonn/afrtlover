@@ -21,7 +21,7 @@ export default function CartDrawer() {
     cartItems.forEach((item, index) => {
       message += `${index + 1}. ${item.name} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}\n`;
     });
-    message += `\n*Total: $${cartTotal.toFixed(2)}*\n\n`;
+    message += `\n*Total: Rs.${cartTotal.toFixed(2)}*\n\n`;
     message += 'Please confirm my order. Thank you!';
 
     const encodedMessage = encodeURIComponent(message);
@@ -137,7 +137,7 @@ export default function CartDrawer() {
           <div className="border-t border-gray-100 p-3 sm:p-5 space-y-3 sm:space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs sm:text-sm text-gray-600">Subtotal</span>
-              <span className="text-base sm:text-lg font-semibold">${cartTotal.toFixed(2)}</span>
+              <span className="text-base sm:text-lg font-semibold">Rs.{cartTotal.toFixed(2)}</span>
             </div>
             <p className="text-[10px] sm:text-xs text-gray-400">
               Shipping calculated at checkout
