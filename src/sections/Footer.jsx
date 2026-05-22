@@ -46,7 +46,7 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-100 text-center">
           <p className="text-[11px] sm:text-xs text-gray-400">
-            © 2026 Blooming Flowers. All Rights Reserved.
+            © 2026 BArtLover. All Rights Reserved.
           </p>
           <p className="text-[10px] sm:text-[11px] text-gray-300 mt-1">
             Handcrafted with love for every occasion
