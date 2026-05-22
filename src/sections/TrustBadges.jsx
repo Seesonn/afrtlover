@@ -5,28 +5,43 @@ const reviews = [
   {
     name: "Niru Gurung ",
     text: "Used Artlover lots of times, always delivered on time and exactly as displayed. Beautiful quality!",
-    time: "2 hours ago",
+    time: new Date(Date.now() - 2 * 60 * 60 * 1000),
     rating: 5
   },
   {
     name: "Suman Ojha.",
     text: "Everything was perfect! The bouquet was stunning and my wife loved it. Highly recommended!",
-    time: "5 hours ago",
+    time: new Date(Date.now() - 5 * 60 * 60 * 1000),
     rating: 5
   },
   {
     name: "Joyti Yadhav.",
     text: "I love Artlover! I am a long time client and I fully trust them with excellent products.",
-    time: "8 hours ago",
+    time: new Date(Date.now() - 8 * 60 * 60 * 1000),
     rating: 5
   },
   {
     name: "David Magar.",
     text: "Perfect flowers, presentation and service. Will definitely order again for all occasions!",
-    time: "12 hours ago",
+    time: new Date(Date.now() - 12 * 60 * 60 * 1000),
     rating: 5
   }
 ];
+
+function timeAgo(date) {
+  const seconds = Math.floor((Date.now() - date) / 1000);
+  if (seconds < 60) return `${seconds} seconds ago`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+  const hours = Math.floor(minutes / 60);
+  if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+  const days = Math.floor(hours / 24);
+  if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+  const months = Math.floor(days / 30);
+  if (months < 12) return `${months} month${months !== 1 ? 's' : ''} ago`;
+  const years = Math.floor(months / 12);
+  return `${years} year${years !== 1 ? 's' : ''} ago`;
+}
 
 export default function TrustBadges() {
   const scrollLeft = () => {
@@ -84,7 +99,7 @@ export default function TrustBadges() {
                     <span className="text-[9px] sm:text-[10px] text-gray-400">Verified</span>
                   </div>
                   <p className="text-[11px] sm:text-xs text-gray-600 leading-relaxed mb-1.5 sm:mb-2">{review.text}</p>
-                  <p className="text-[9px] sm:text-[10px] text-gray-400">{review.name}, {review.time}</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400">{review.name}, {timeAgo(review.time)}</p>
                 </div>
               ))}
             </div>
