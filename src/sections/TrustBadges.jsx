@@ -3,25 +3,25 @@ import { Star, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const reviews = [
   {
-    name: "Sarah M.",
-    text: "Used Blooming Flowers lots of times, always delivered on time and exactly as displayed. Beautiful quality!",
+    name: "Niru Gurung ",
+    text: "Used Artlover lots of times, always delivered on time and exactly as displayed. Beautiful quality!",
     time: "2 hours ago",
     rating: 5
   },
   {
-    name: "James K.",
+    name: "Suman Ojha.",
     text: "Everything was perfect! The bouquet was stunning and my wife loved it. Highly recommended!",
     time: "5 hours ago",
     rating: 5
   },
   {
-    name: "Emily R.",
-    text: "I love Blooming Flowers! I am a long time client and I fully trust them with excellent products.",
+    name: "Joyti Yadhav.",
+    text: "I love Artlover! I am a long time client and I fully trust them with excellent products.",
     time: "8 hours ago",
     rating: 5
   },
   {
-    name: "David L.",
+    name: "David Magar.",
     text: "Perfect flowers, presentation and service. Will definitely order again for all occasions!",
     time: "12 hours ago",
     rating: 5

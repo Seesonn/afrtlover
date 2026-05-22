@@ -42,10 +42,10 @@ export default function BlogSection() {
                     </span>
                   </div>
                 </div>
-                <button className="mt-2.5 sm:mt-3 text-[11px] sm:text-xs font-medium flex items-center gap-1 group/btn">
+                {/* <button className="mt-2.5 sm:mt-3 text-[11px] sm:text-xs font-medium flex items-center gap-1 group/btn">
                   Read More
                   <ArrowRight className="w-2.5 sm:w-3 h-2.5 sm:h-3 transition-transform group-hover/btn:translate-x-1" />
-                </button>
+                </button> */}
               </div>
             </article>
           ))}
