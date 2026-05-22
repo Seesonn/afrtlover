@@ -76,7 +76,7 @@ export default function ProductGrid() {
                 </h3>
                 <p className="text-[10px] sm:text-xs text-gray-500 mb-1">from</p>
                 <p className="text-sm sm:text-base font-semibold text-gray-900 mb-2 sm:mb-3">
-                  ${product.price.toFixed(2)}
+                  Rs.{product.price.toFixed(2)}
                 </p>
                 <button
                   onClick={() => handleAddToCart(product)}
