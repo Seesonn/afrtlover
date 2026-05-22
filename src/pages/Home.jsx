@@ -10,7 +10,7 @@ import ProductGrid from '../sections/ProductGrid';
 import FeaturesSection from '../sections/FeaturesSection';
 import FAQsSection from '../sections/FAQsSection';
 import BlogSection from '../sections/BlogSection';
-import SubscribeSection from '../sections/SubscribeSection';
+// import SubscribeSection from '../sections/SubscribeSection';
 import ServiceBar from '../sections/ServiceBar';
 import Footer from '../sections/Footer';
 import CartDrawer from '../sections/CartDrawer';
@@ -37,7 +37,7 @@ export default function Home() {
         <FeaturesSection />
         <FAQsSection />
         <BlogSection />
-        <SubscribeSection />
+        {/* <SubscribeSection /> */}
         <ServiceBar />
       </main>
       <Footer />
