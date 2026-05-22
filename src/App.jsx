@@ -1,10 +1,13 @@
-import React from 'react'
-import SisanNote from './components/SisanNote'
+import { Routes, Route } from 'react-router-dom';
+import { CartProvider } from './context/CartContext';
+import Home from './pages/Home';
 
-const App = () => {
-  return (<div>
- <SisanNote/>
-    </div>
-  )
+export default function App() {
+  return (
+    <CartProvider>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </CartProvider>
+  );
 }
-export default App;

@@ -1,0 +1,104 @@
+import { useEffect } from 'react';
+import { Star, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const reviews = [
+  {
+    name: "Sarah M.",
+    text: "Used Blooming Flowers lots of times, always delivered on time and exactly as displayed. Beautiful quality!",
+    time: "2 hours ago",
+    rating: 5
+  },
+  {
+    name: "James K.",
+    text: "Everything was perfect! The bouquet was stunning and my wife loved it. Highly recommended!",
+    time: "5 hours ago",
+    rating: 5
+  },
+  {
+    name: "Emily R.",
+    text: "I love Blooming Flowers! I am a long time client and I fully trust them with excellent products.",
+    time: "8 hours ago",
+    rating: 5
+  },
+  {
+    name: "David L.",
+    text: "Perfect flowers, presentation and service. Will definitely order again for all occasions!",
+    time: "12 hours ago",
+    rating: 5
+  }
+];
+
+export default function TrustBadges() {
+  const scrollLeft = () => {
+    const container = document.getElementById('reviews-scroll');
+    if (container) container.scrollBy({ left: -300, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    const container = document.getElementById('reviews-scroll');
+    if (container) container.scrollBy({ left: 300, behavior: 'smooth' });
+  };
+
+  return (
+    <section className="py-8 sm:py-10 bg-white border-b border-gray-100">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Trustpilot Summary */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-6 md:gap-12 mb-6 sm:mb-8">
+          <div className="text-center" data-aos="fade-up">
+            <h3 className="text-lg sm:text-xl font-medium mb-1">Excellent</h3>
+            <div className="flex items-center gap-0.5 mb-1 justify-center">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star key={star} className="w-4 sm:w-5 h-4 sm:h-5 fill-emerald-500 text-emerald-500" />
+              ))}
+            </div>
+            <p className="text-[11px] sm:text-xs text-gray-500">Based on <span className="underline">2,847 reviews</span></p>
+          </div>
+
+          {/* Review Carousel */}
+          <div className="relative flex-1 max-w-2xl w-full">
+            <button
+              onClick={scrollLeft}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-7 sm:w-8 h-7 sm:h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+              aria-label="Previous review"
+            >
+              <ChevronLeft className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+            </button>
+
+            <div
+              id="reviews-scroll"
+              className="flex gap-3 sm:gap-4 overflow-x-auto scrollbar-hide px-8 sm:px-10 py-2"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {reviews.map((review, index) => (
+                <div
+                  key={index}
+                  className="min-w-[220px] sm:min-w-[260px] bg-white border border-gray-100 rounded-lg p-3 sm:p-4 shadow-sm"
+                  data-aos="fade-up"
+                  data-aos-delay={index * 100}
+                >
+                  <div className="flex items-center gap-0.5 mb-1.5 sm:mb-2">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Star key={star} className="w-3 sm:w-3.5 h-3 sm:h-3.5 fill-emerald-500 text-emerald-500" />
+                    ))}
+                    <CheckCircle className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-gray-400 ml-0.5 sm:ml-1" />
+                    <span className="text-[9px] sm:text-[10px] text-gray-400">Verified</span>
+                  </div>
+                  <p className="text-[11px] sm:text-xs text-gray-600 leading-relaxed mb-1.5 sm:mb-2">{review.text}</p>
+                  <p className="text-[9px] sm:text-[10px] text-gray-400">{review.name}, {review.time}</p>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={scrollRight}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-7 sm:w-8 h-7 sm:h-8 bg-white border border-gray-200 rounded-full flex items-center justify-center hover:bg-gray-50 transition-colors"
+              aria-label="Next review"
+            >
+              <ChevronRight className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
