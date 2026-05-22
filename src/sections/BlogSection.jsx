@@ -1,4 +1,5 @@
 import { Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { blogs } from '../data/products';
 
 export default function BlogSection() {
@@ -16,7 +17,7 @@ export default function BlogSection() {
           {blogs.map((blog, index) => (
             <article
               key={blog.id}
-              className="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white rounded-lg overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col"
               data-aos="fade-up"
               data-aos-delay={index * 100}
             >
@@ -28,12 +29,12 @@ export default function BlogSection() {
                   loading="lazy"
                 />
               </div>
-              <div className="p-3 sm:p-4">
+              <div className="p-3 sm:p-4 flex flex-col flex-grow">
                 <h3 className="text-xs sm:text-sm font-medium mb-1.5 sm:mb-2 line-clamp-2 group-hover:text-gray-600 transition-colors">
                   {blog.title}
                 </h3>
-                <p className="text-[11px] sm:text-xs text-gray-400 mb-2.5 sm:mb-3">{blog.excerpt}</p>
-                <div className="flex items-center justify-between">
+                <p className="text-[11px] sm:text-xs text-gray-400 mb-2.5 sm:mb-3 flex-grow">{blog.excerpt}</p>
+                <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2 sm:gap-3 text-[9px] sm:text-[10px] text-gray-400">
                     <span>{blog.date}</span>
                     <span className="flex items-center gap-0.5 sm:gap-1">
@@ -42,10 +43,13 @@ export default function BlogSection() {
                     </span>
                   </div>
                 </div>
-                {/* <button className="mt-2.5 sm:mt-3 text-[11px] sm:text-xs font-medium flex items-center gap-1 group/btn">
+                <Link
+                  to={`/blog/${blog.id}`}
+                  className="text-[11px] sm:text-xs font-medium flex items-center gap-1 group/btn text-gray-900 hover:text-rose-400 transition-colors"
+                >
                   Read More
                   <ArrowRight className="w-2.5 sm:w-3 h-2.5 sm:h-3 transition-transform group-hover/btn:translate-x-1" />
-                </button> */}
+                </Link>
               </div>
             </article>
           ))}

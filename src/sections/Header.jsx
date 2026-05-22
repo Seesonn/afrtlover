@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, ShoppingCart, Menu, X, Phone } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { navLinks } from '../data/products';
 
 export default function Header() {
   const { cartCount, openCart } = useCart();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +20,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close menu when clicking outside or on escape key
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
@@ -31,9 +32,13 @@ export default function Header() {
 
   const scrollToSection = (href) => {
     setIsMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (href.startsWith('/')) {
+      navigate(href);
+    } else {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
@@ -47,7 +52,7 @@ export default function Header() {
         {/* Main Header */}
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-4">
-            {/* Left - Phone & Social */}
+            {/* Left - Phone */}
             <div className="hidden lg:flex items-center gap-4 text-sm text-gray-600">
               <a href="tel:+9779815366153" className="flex items-center gap-1.5 hover:text-black transition-colors">
                 <Phone className="w-4 h-4" />
@@ -61,7 +66,7 @@ export default function Header() {
                 ArtLover
               </h1>
               <span className="text-[10px] md:text-xs tracking-[0.3em] text-gray-500 uppercase mt-0.5">
-                Craft by Swastika 
+                Craft by Swastika
               </span>
             </a>
 
@@ -134,7 +139,7 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* Mobile Navigation - Slide from Right */}
+      {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           {/* Backdrop */}
@@ -159,7 +164,6 @@ export default function Header() {
 
             {/* Menu Content */}
             <div className="p-4">
-              {/* Navigation Links */}
               <ul className="space-y-1 mb-6">
                 {navLinks.map((link) => (
                   <li key={link.name}>
@@ -173,9 +177,7 @@ export default function Header() {
                 ))}
               </ul>
 
-              {/* Divider */}
               <div className="border-t border-gray-100 pt-6 mb-6">
-                {/* Contact Info */}
                 <a
                   href="tel:+9779816347329"
                   className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors mb-4"
