@@ -61,7 +61,7 @@ export default function Header() {
                 ArtLover
               </h1>
               <span className="text-[10px] md:text-xs tracking-[0.3em] text-gray-500 uppercase mt-0.5">
-                Flower Gallery
+                Craft by Swastika 
               </span>
             </a>
 
@@ -177,13 +177,13 @@ export default function Header() {
               <div className="border-t border-gray-100 pt-6 mb-6">
                 {/* Contact Info */}
                 <a
-                  href="tel:+9779815366153"
+                  href="tel:+9779816347329"
                   className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors mb-4"
                 >
                   <Phone className="w-5 h-5 text-gray-600" />
                   <div>
                     <p className="text-xs text-gray-500">Call us</p>
-                    <p className="text-sm font-semibold text-gray-700">+977 9815366153</p>
+                    <p className="text-sm font-semibold text-gray-700">+977 9816347329</p>
                   </div>
                 </a>
               </div>
