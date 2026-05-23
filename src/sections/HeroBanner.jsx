@@ -2,8 +2,6 @@ import { useEffect, useRef } from 'react';
 
 export default function HeroBanner() {
   const videoRef = useRef(null);
-  const animationFrameRef = useRef(null);
-  const lastProgressRef = useRef(0);
 
   useEffect(() => {
     // AOS initialization handled in App
@@ -13,66 +11,14 @@ export default function HeroBanner() {
     const video = videoRef.current;
     if (!video) return;
 
-    const heroSection = document.querySelector('.hero-section');
-    if (!heroSection) return;
-
-    // Check if mobile screen (less than lg breakpoint: 1024px)
+    // Check if mobile screen
     const isMobile = () => window.innerWidth < 1024;
 
-    // Wait for video to be loadable
-    const handleMetadata = () => {
-      const updateVideoProgress = () => {
-        if (!video || !video.duration || !isMobile()) {
-          return;
-        }
-
-        const scrollY = window.scrollY;
-        const heroBounds = heroSection.getBoundingClientRect();
-        const heroTop = heroBounds.top + scrollY;
-        const heroHeight = heroBounds.height;
-        const windowHeight = window.innerHeight;
-
-        // Calculate when the hero section enters and leaves viewport
-        const triggerPoint = windowHeight * 0.3;
-        const scrollStart = Math.max(0, heroTop - triggerPoint);
-        const scrollEnd = heroTop + heroHeight;
-        
-        const scrollDistance = scrollEnd - scrollStart;
-        const currentScroll = Math.max(0, scrollY - scrollStart);
-        
-        // Calculate progress (0 to 1) - direct without interpolation for true smoothness
-        let progress = scrollDistance > 0 ? currentScroll / scrollDistance : 0;
-        progress = Math.max(0, Math.min(1, progress));
-        
-        // Set video time directly for instant, smooth scrubbing
-        const videoTime = progress * video.duration;
-        if (Math.abs(video.currentTime - videoTime) > 0.05) {
-          video.currentTime = videoTime;
-        }
-      };
-
-      // Update on every scroll event without debouncing
-      const handleScroll = () => {
-        updateVideoProgress();
-      };
-
-      // Use passive listener for better performance
-      window.addEventListener('scroll', handleScroll, { passive: true });
-
-      // Initial check on mount
-      updateVideoProgress();
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    };
-
-    // Wait for video metadata to load
-    if (video.readyState >= 1) {
-      return handleMetadata();
-    } else {
-      video.addEventListener('loadedmetadata', handleMetadata, { once: true });
-      return () => video.removeEventListener('loadedmetadata', handleMetadata);
+    // Only play video on mobile
+    if (isMobile()) {
+      video.play().catch(err => {
+        console.log('Video autoplay failed:', err);
+      });
     }
   }, []);
 
@@ -101,7 +47,7 @@ export default function HeroBanner() {
         muted
         playsInline
         preload="auto"
-        onError={() => console.log('Video failed to load - using image fallback')}
+        onError={() => console.log('Video failed to load')}
       >
         <source src="/videos/video.mp4" type="video/mp4" />
       </video>
