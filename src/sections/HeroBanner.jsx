@@ -21,11 +21,8 @@ export default function HeroBanner() {
 
     // Wait for video to be loadable
     const handleMetadata = () => {
-      let ticking = false;
-
       const updateVideoProgress = () => {
         if (!video || !video.duration || !isMobile()) {
-          ticking = false;
           return;
         }
 
@@ -36,52 +33,37 @@ export default function HeroBanner() {
         const windowHeight = window.innerHeight;
 
         // Calculate when the hero section enters and leaves viewport
-        const triggerPoint = windowHeight * 0.5; // Start when hero is 50% visible
+        const triggerPoint = windowHeight * 0.3;
         const scrollStart = Math.max(0, heroTop - triggerPoint);
         const scrollEnd = heroTop + heroHeight;
         
         const scrollDistance = scrollEnd - scrollStart;
         const currentScroll = Math.max(0, scrollY - scrollStart);
         
-        // Calculate progress (0 to 1)
-        let progress = currentScroll / scrollDistance;
+        // Calculate progress (0 to 1) - direct without interpolation for true smoothness
+        let progress = scrollDistance > 0 ? currentScroll / scrollDistance : 0;
         progress = Math.max(0, Math.min(1, progress));
-
-        // Smooth interpolation - ease-out cubic for natural motion
-        const easedProgress = progress < 0.5
-          ? 4 * progress * progress * progress
-          : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-        // Linear interpolation between last and current progress for smoothness
-        const smoothedProgress = lastProgressRef.current + (easedProgress - lastProgressRef.current) * 0.2;
         
-        // Set video time
-        const videoTime = smoothedProgress * video.duration;
-        video.currentTime = videoTime;
-        
-        lastProgressRef.current = smoothedProgress;
-        ticking = false;
+        // Set video time directly for instant, smooth scrubbing
+        const videoTime = progress * video.duration;
+        if (Math.abs(video.currentTime - videoTime) > 0.05) {
+          video.currentTime = videoTime;
+        }
       };
 
+      // Update on every scroll event without debouncing
       const handleScroll = () => {
-        if (ticking || !isMobile()) return;
-        ticking = true;
-        animationFrameRef.current = requestAnimationFrame(updateVideoProgress);
+        updateVideoProgress();
       };
 
       // Use passive listener for better performance
       window.addEventListener('scroll', handleScroll, { passive: true });
 
       // Initial check on mount
-      if (isMobile()) {
-        handleScroll();
-      }
+      updateVideoProgress();
 
       return () => {
         window.removeEventListener('scroll', handleScroll);
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
-        }
       };
     };
 
@@ -89,7 +71,7 @@ export default function HeroBanner() {
     if (video.readyState >= 1) {
       return handleMetadata();
     } else {
-      video.addEventListener('loadedmetadata', handleMetadata);
+      video.addEventListener('loadedmetadata', handleMetadata, { once: true });
       return () => video.removeEventListener('loadedmetadata', handleMetadata);
     }
   }, []);
@@ -115,7 +97,7 @@ export default function HeroBanner() {
       {/* Mobile Video Background (hidden on desktop) */}
       <video
         ref={videoRef}
-        className="block lg:hidden absolute inset-0 w-full h-full object-cover z-10"
+        className="block lg:hidden absolute inset-0 w-full h-full object-cover z-0"
         muted
         playsInline
         preload="auto"
@@ -124,8 +106,8 @@ export default function HeroBanner() {
         <source src="/videos/video.mp4" type="video/mp4" />
       </video>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent" />
+      {/* White Gradient Overlay on Mobile (for video) */}
+      <div className="block lg:hidden absolute inset-0 bg-gradient-to-r from-white/70 via-white/40 to-white/20 z-[5]" />
 
       {/* Content */}
       <div
